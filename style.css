@@ -59,8 +59,9 @@ article.media-post > footer ul {
 
 .activated-heart {
   color: red;
+
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
