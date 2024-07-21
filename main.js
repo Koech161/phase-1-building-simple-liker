@@ -8,40 +8,33 @@ const FULL_HEART = '♥'
 
 document.addEventListener('DOMContentLoaded', function() {
   const errorModal = document.getElementById('modal');
-  const hearts = document.querySelectorAll('.like-glyph')
-  errorModal.classList.add('hidden')
-  hearts.forEach((heart)=>{
-    heart.addEventListener('click',function(){
+  const hearts = document.querySelectorAll('.like-glyph');
+
+  errorModal.classList.add('hidden');
+
+  hearts.forEach((heart) => {
+    heart.addEventListener('click', function() {
       mimicServerCall()
-    .then(()=>{
-      heart.classList.add('activated-heart')
-      heart.innerHTML=`♥`
-    })
-  }).catch((Error)=>{
-    const errorMessage=document.getElementById('modal-message')
-    errorModal.classList.remove('hidden')
-    errorMessage.innerText='Random server error. Try again.'
-    setTimeout(() => {
-      errorModal.classList.add('hidden')
-    },3000);
-  
-  
-    })
-    })
-    })
-    herts.forEach((heart)=>{
-      heart.addEventListener('click',function(){
-      if(heart.classList.contain('activated-heart')){
-        heart.classList.remove('activated-heart')
-        heart.innerHTML='♡'
-
-      }
-      })
-    })
-  
- 
-
-
+        .then(() => {
+          if (!heart.classList.contains('activated-heart')) {
+            heart.classList.add('activated-heart');
+            heart.innerHTML = FULL_HEART;
+          } else {
+            heart.classList.remove('activated-heart');
+            heart.innerHTML = EMPTY_HEART;
+          }
+        })
+        .catch((error) => {
+          const errorMessage = document.getElementById('modal-message');
+          errorModal.classList.remove('hidden');
+          errorMessage.innerText = error;
+          setTimeout(() => {
+            errorModal.classList.add('hidden');
+          }, 3000);
+        });
+    });
+  });
+});
 
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
@@ -50,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function mimicServerCall(url="http://mimicServer.example.com", config={}) {
   return new Promise(function(resolve, reject) {
     setTimeout(function() {
-      let isRandomFailure = Math.random() < .2
+      let isRandomFailure = Math.random() < 0.2;
       if (isRandomFailure) {
         reject("Random server error. Try again.");
       } else {
@@ -59,3 +52,6 @@ function mimicServerCall(url="http://mimicServer.example.com", config={}) {
     }, 300);
   });
 }
+
+
+
