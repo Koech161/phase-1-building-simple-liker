@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const errorModal = document.getElementById('modal');
   const hearts = document.querySelectorAll('.like-glyph');
 
-  errorModal.classList.add('hidden');
+ // errorModal.classList.add('hidden');
 
   hearts.forEach((heart) => {
     heart.addEventListener('click', function() {
